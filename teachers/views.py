@@ -1,18 +1,22 @@
-from django.http import JsonResponse
+from django.shortcuts import render, redirect
 
-from teachers.models import Teacher
+from .models import Teacher
+from .forms import TeacherForm
 
 
-def get_all(request):
-    teachers = list()
-    for teacher in Teacher.objects.all():
-        teachers.append(
-            {
-                "id": teacher.id,
-                "first_name": teacher.first_name,
-                "last_name": teacher.last_name,
-                "subject": teacher.subject,
-            }
-        )
+def teacher_form(request):
+    if request.method == "GET":
+        form = TeacherForm()
+        return render(request, "teacher_form.html", {"form": form})
 
-    return JsonResponse({"teachers": teachers})
+    form = TeacherForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect("teachers_list")
+
+    return render(request, "teacher_form.html", {"form": form})
+
+
+def teachers_list(request):
+    objects = Teacher.objects.all()
+    return render(request, "teachers_list.html", {"objects": objects})

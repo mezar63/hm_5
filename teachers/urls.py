@@ -1,4 +1,8 @@
 from django.urls import path
-from . import views
 
-urlpatterns = [path("", views.get_all, name="get_all_teachers")]
+from .views import teacher_form, teachers_list
+
+urlpatterns = [
+    path("teacher/", teacher_form, name="teacher_form"),
+    path("teachers/", teachers_list, name="teachers_list"),
+]
