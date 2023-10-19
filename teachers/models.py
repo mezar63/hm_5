@@ -11,7 +11,7 @@ class Subject(models.Model):
 class Teacher(models.Model):
     name = models.CharField("ФИО", max_length=255, default="")
     birth_date = models.DateField("Дата рождения", default="")
-    subjects = models.CharField(max_length=100, default='Математика')
+    subjects = models.CharField(max_length=100, default="Математика")
 
     def __str__(self):
         return self.name

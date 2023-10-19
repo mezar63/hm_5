@@ -15,7 +15,6 @@ def group_form(request):
     return render(request, "group_form.html", {"form": form})
 
 
-
 def groups_list(request):
     groups = Group.objects.all()
     return render(request, "group_list.html", {"groups": groups})
