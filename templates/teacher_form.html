@@ -1,0 +1,14 @@
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="OK">
+    </form>
+
+    <br>
+
+    <a href="{% url 'teachers_list' %}" class="tag">
+        <i class="fa-solid fa-chevron-left"></i>
+        Повернутись
+    </a>
+{% endblock %}

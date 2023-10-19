@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 
-from .models import Teacher
 from .forms import TeacherForm
 
 
@@ -19,4 +18,4 @@ def teacher_form(request):
 
 def teachers_list(request):
     objects = Teacher.objects.all()
-    return render(request, "get_teachers_list.html", {"objects": objects})
+    return render(request, "teachers_list.html", {"objects": objects})

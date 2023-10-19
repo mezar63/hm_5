@@ -1,5 +1,11 @@
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="OK">
-</form>
+<head>
+    <title>Форма для додавання вчителя</title>
+</head>
+<body>
+    <h1>Форма для додавання вчителя</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Зберегти">
+    </form>
+</body>
