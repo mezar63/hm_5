@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="teacher",
             name="birth_date",
-            field=models.DateField(default="", verbose_name="Дата рождения"),
+            field=models.DateField(default="2000-01-01", verbose_name="Дата рождения"),
         ),
         migrations.AddField(
             model_name="teacher",

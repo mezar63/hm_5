@@ -37,4 +37,4 @@ def group_edit(request, pk):
 
 def groups_list(request):
     objects = Group.objects.all()
-    return render(request, "groups_list.html", {"objects": objects})
+    return render(request, "group_list.html", {"objects": objects})

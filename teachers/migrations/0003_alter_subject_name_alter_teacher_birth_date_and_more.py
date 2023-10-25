@@ -21,7 +21,6 @@ class Migration(migrations.Migration):
             model_name="teacher",
             name="birth_date",
             field=models.DateField(),
-            default="2000-01-01"
 
         ),
         migrations.AlterField(
