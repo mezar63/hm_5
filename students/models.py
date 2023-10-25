@@ -1,15 +1,12 @@
 from django.db import models
 
+from groups.models import Group
 
-# Create your models here.
+
 class Student(models.Model):
-    first_name = models.CharField("Ім'я", max_length=255, default="")
-    last_name = models.CharField("Прізвище", max_length=255, default="")
-    birth_date = models.DateField("Дата народження", default="")
+    first_name = models.CharField(max_length=50)
+    year = models.CharField(max_length=4, default='2005')
+    groups = models.ManyToManyField(Group, related_name="students", blank=True)
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name}"
-
-    class Meta:
-        verbose_name = "Студент"
-        verbose_name_plural = "Студенти"
+        return f"ID: {self.pk} {self.first_name}"

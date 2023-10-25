@@ -5,28 +5,30 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>ПІБ</th>
-                <th>Дата народження</th>
-                <th>Предмети</th>
+                <th>Ім'я</th>
+                <th>Рік закінчення навчання</th>
+                <th>Групи</th>
                 <th>Функції</th>
             </tr>
         </thead>
         <tbody>
-            {% for teacher in teachers %}
+            {% for student in students %}
                 <tr>
-                    <td>{{ teacher.id }}</td>
+                    <td>{{ student.id }}</td>
                     <td>
-                        <a href="{% url 'teacher_edit' pk=teacher.id %}">
-                            {{ teacher.name }}
+                        <a href="{% url 'student_edit' pk=student.id %}">
+                            {{ student.first_name }}
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                     </td>
-                    <td>{{ teacher.birth_date }}</td>
+                    <td>{{ student.year }}</td>
                     <td>
-                        <span class="tag">{{ teacher.subjects }}</span>
+                        {% for group in student.groups.all %}
+                            <span class="tag">{{ group.name }}</span>
+                        {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url 'teacher_delete' pk=teacher.id %}">
+                        <a href="{% url 'student_delete' pk=student.id %}">
                             Видалити
                             <i class="fa-regular fa-circle-xmark"></i>
                         </a>
@@ -38,7 +40,7 @@
 
     <br>
 
-    <a href="{% url 'teacher_form' %}" class="tag">
-        Додати вчителя
+    <a href="{% url 'student_form' %}" class="tag">
+        Додати студента
     </a>
 {% endblock %}

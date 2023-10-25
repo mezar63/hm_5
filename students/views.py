@@ -1,52 +1,49 @@
-from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
-from faker import Faker
-
+from .forms import StudentForm
 from .models import Student
 
 
-def is_int(value):
-    try:
-        int(value)
-        return True
-    except ValueError:
-        return False
+def student_form(request):
+    if request.method == "GET":
+        form = StudentForm()
+        return render(request, "student_form.html", {"form": form})
+
+    form = StudentForm(request.POST)
+    if form.is_valid():
+        instance = form.save()
+        for group in form.cleaned_data["groups"]:
+            instance.groups.add(group)
+
+    return redirect(reverse("student_list"))
 
 
-def create_student():
-    fake = Faker("uk")
+def student_edit(request, pk):
+    student = Student.objects.get(pk=pk)
+    if request.method == "GET":
+        form = StudentForm(instance=student)
+        return render(request, "student_form.html", {"form": form})
 
-    student = Student.objects.create(
-        first_name=fake.first_name(), last_name=fake.last_name(), birth_date=fake.date()
-    )
+    form = StudentForm(request.POST, instance=student)
+    if form.is_valid():
+        instance = form.save()
+        instance.groups.clear()
 
-    return {
-        "id": student.id,
-        "first_name": student.first_name,
-        "last_name": student.last_name,
-        "birth_date": student.birth_date,
-    }
+        for group in form.cleaned_data["groups"]:
+            instance.groups.add(group)
 
+        return redirect(reverse("student_list"))
 
-def generate_student(request):
-    student = create_student()
-    return JsonResponse(student)
+    return render(request, "student_form.html", {"form": form})
 
 
-def generate_students(request):
-    count = request.GET.get("count")
-    if not count or not is_int(count):
-        return JsonResponse({"error": "Параметр count не корректний"})
+def student_delete(request, pk):
+    student = Student.objects.get(pk=pk)
+    student.delete()
+    return redirect(reverse("student_list"))
 
-    count = int(count)
 
-    if count <= 0 or count > 100:
-        return JsonResponse(
-            {
-                "error": "Параметр count пивинен бути більше 0 та менше або дорівнювати 100"
-            }
-        )
-
-    students = [create_student() for i in range(count)]
-
-    return JsonResponse({"students": students})
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, "student_list.html", {"students": students})

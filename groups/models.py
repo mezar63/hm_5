@@ -4,9 +4,9 @@ from teachers.models import Teacher
 
 
 class Group(models.Model):
-    name = models.CharField("Название группы", max_length=255, default="")
+    name = models.CharField("Назва групи", max_length=255, default="")
     teacher = models.ForeignKey(
-        Teacher, verbose_name="Учитель", on_delete=models.PROTECT
+        Teacher, verbose_name="Вчитель", on_delete=models.PROTECT
     )
 
     def __str__(self):

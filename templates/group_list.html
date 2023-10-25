@@ -1,5 +1,39 @@
-<ul>
-  {% for group in groups %}
-    <li>{{ group.name }}</li>
-  {% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Назва групи</th>
+                <th>Вчитель</th>
+                <th>Учні</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in objects %}
+                <tr>
+                    <td>{{ object.id }}</td>
+                    <td>
+                        <a href="{% url 'group_edit' pk=object.id %}">
+                            {{ object.name }}
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </td>
+                    <td>{{ object.teacher }}</td>
+                    <td>
+                        {% for student in object.students.all %}
+                            <span class="tag">{{ student.first_name }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+    <a href="{% url 'group_form' %}" class="tag">
+        Додати групу
+    </a>
+{% endblock %}
