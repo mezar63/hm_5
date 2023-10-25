@@ -21,7 +21,6 @@ class Migration(migrations.Migration):
             model_name="teacher",
             name="birth_date",
             field=models.DateField(),
-
         ),
         migrations.AlterField(
             model_name="teacher",
