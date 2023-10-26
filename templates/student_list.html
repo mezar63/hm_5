@@ -5,10 +5,10 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Ім'я</th>
-                <th>Рік закінчення навчання</th>
-                <th>Групи</th>
-                <th>Функції</th>
+                <th>Имя</th>
+                <th>Год завершения обучения</th>
+                <th>Групы</th>
+                <th>Функции</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
                     </td>
                     <td>
                         <a href="{% url 'student_delete' pk=student.id %}">
-                            Видалити
+                            Удалить
                             <i class="fa-regular fa-circle-xmark"></i>
                         </a>
                     </td>
@@ -41,6 +41,6 @@
     <br>
 
     <a href="{% url 'student_form' %}" class="tag">
-        Додати студента
+        Добавить студента
     </a>
 {% endblock %}
